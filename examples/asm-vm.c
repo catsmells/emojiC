@@ -11,33 +11,33 @@
 #include <🌿.h>
 🧀{
     🍔_🌍=0,
-    🍔_R1,
-    🍔_R2,
-    🍔_R3,
-    🍔_R4,
-    🍔_R5,
-    🍔_R6,
-    🍔_R7,
-    🍔_PC,
-    🍔_COND,
-    🍔_COUNT
+    🍔_🚊,
+    🍔_🎄,
+    🍔_🔒,
+    🍔_🛁,
+    🍔_🍎,
+    🍔_🐔,
+    🍔_🙇,
+    🍔_🙅,
+    🍔_🎅,
+    🍔_👶
 }🧀{
     🥚_🕋=0,
-    🥚_ADD,
-    🥚_LD,
-    🥚_ST,
-    🥚_JSR,
-    🥚_AND,
-    🥚_LDR,
-    🥚_STR,
-    🥚_RTI,
-    🥚_NOT,
-    🥚_LDI,
-    🥚_STI,
-    🥚_JMP,
-    🥚_RES,
-    🥚_LEA,
-    🥚_TRAP
+    🥚_🚚,
+    🥚_🤵,
+    🥚_🔰,
+    🥚_👄,
+    🥚_⚾,
+    🥚_👩‍💻,
+    🥚_👊,
+    🥚_🐀,
+    🥚_🌒,
+    🥚_🚲,
+    🥚_💊,
+    🥚_👁️‍🗨️,
+    🥚_✨,
+    🥚_💅,
+    🥚_👃
 }🧀{
     🍴_POS=1<<0,
     🍴_ZRO=1<<1,
@@ -46,15 +46,15 @@
     MR_KBSR=0xFE00,
     MR_KBDR=0xFE02
 }🧀{
-    TRAP_GETC=0x20,
-    TRAP_OUT=0x21,
-    TRAP_PUTS=0x22,
-    TRAP_IN=0x23,
-    TRAP_PUTSP=0x24,
-    TRAP_HALT=0x25
+    👃_GETC=0x20,
+    👃_OUT=0x21,
+    👃_PUTS=0x22,
+    👃_IN=0x23,
+    👃_PUTSP=0x24,
+    👃_HALT=0x25
 }
 uint16_t memory[UINT16_MAX];
-uint16_t reg[🍔_COUNT];
+uint16_t reg[🍔_👶];
 uint16_t sign_extend(uint16_t x,int bit_count){
     if((x>>(bit_count-1))&1){
         x |= (0xFFFF<<bit_count);
@@ -66,11 +66,11 @@ uint16_t swap16(uint16_t x){
 }
 void update_flags(uint16_t r){
     if(reg[r]==0){
-        reg[🍔_COND]=🍴_ZRO;
+        reg[🍔_🎅]=🍴_ZRO;
     }else if(reg[r]>>15){
-        reg[🍔_COND]=🍴_NEG;
+        reg[🍔_🎅]=🍴_NEG;
     }else{
-        reg[🍔_COND]=🍴_POS;
+        reg[🍔_🎅]=🍴_POS;
     }
 }
 void read_image_file(FILE* file){
@@ -143,14 +143,14 @@ int main(int argc,const char* argv[]){
     }
     signal(SIGINT,handle_interrupt);
     disable_input_buffering();
-    🧀{PC_START=0x3000};
-    reg[R_PC]=PC_START;
+    🧀{🙅_START=0x3000};
+    reg[🍔_🙅]=🙅_START;
     int running=1;
     while(running){
-        uint16_t instr=mem_read(reg[R_PC]++);
+        uint16_t instr=mem_read(reg[🍔_🙅]++);
         uint16_t op=instr>>12;
         switch(op){
-            case OP_ADD:{
+            case OP_🚚:{
                     uint16_t r0=(instr>>9)&0x7;
                     uint16_t r1=(instr>>6)&0x7;
                     uint16_t imm_flag=(instr>>5)&0x1;
@@ -164,7 +164,7 @@ int main(int argc,const char* argv[]){
                     update_flags(r0);
                 }
                 break;
-            case 🥚_AND:{
+            case 🥚_⚾:{
                     uint16_t r0=(instr>>9)&0x7;
                     uint16_t r1=(instr>>6)&0x7;
                     uint16_t imm_flag=(instr>>5)&0x1;
@@ -178,7 +178,7 @@ int main(int argc,const char* argv[]){
                     update_flags(r0);
                 }
                 break;
-            case 🥚_NOT:
+            case 🥚_🌒:
                 {
                     uint16_t r0=(instr>>9)&0x7;
                     uint16_t r1=(instr>>6)&0x7;
@@ -189,49 +189,49 @@ int main(int argc,const char* argv[]){
             case 🥚_🕋:{
                     uint16_t pc_offset=sign_extend((instr)&0x1ff,9);
                     uint16_t cond_flag=(instr>>9)&0x7;
-                    if(cond_flag&reg[🍔_COND]){
-                        reg[🍔_PC]+=pc_offset;
+                    if(cond_flag&reg[🍔_🎅]){
+                        reg[🍔_🙅]+=pc_offset;
                     }
                 }
                 break;
-            case 🥚_JMP:
+            case 🥚_👁️‍🗨️:
                 {
                     uint16_t r1=(instr>>6)&0x7;
-                    reg[🍔_PC]=reg[r1];
+                    reg[🍔_🙅]=reg[r1];
                 }
                 break;
-            case 🥚_JSR:
+            case 🥚_👄:
                 {
                     uint16_t r1=(instr>>6)&0x7;
                     uint16_t long_pc_offset=sign_extend(instr&0x7ff,11);
                     uint16_t long_flag=(instr>>11)&1;
-                    reg[🍔_R7]=reg[🍔_PC];
+                    reg[🍔_🙇]=reg[🍔_🙅];
                     if(long_flag){
-                        reg[🍔_PC]+=long_pc_offset;
+                        reg[🍔_🙅]+=long_pc_offset;
                     }
                     else{
-                        reg[🍔_PC]=reg[r1];
+                        reg[🍔_🙅]=reg[r1];
                     }
                     break;
                 }
                 break;
-            case 🥚_LD:
+            case 🥚_🤵:
                 {
                     uint16_t r0=(instr>>9)&0x7;
                     uint16_t pc_offset=sign_extend(instr&0x1ff,9);
-                    reg[r0]=mem_read(reg[🍔_PC]+pc_offset);
+                    reg[r0]=mem_read(reg[🍔_🙅]+pc_offset);
                     update_flags(r0);
                 }
                 break;
-            case 🥚_LDI:
+            case 🥚_🚲:
                 {
                     uint16_t r0=(instr>>9)&0x7;
                     uint16_t pc_offset=sign_extend(instr&0x1ff,9);
-                    reg[r0]=mem_read(mem_read(reg[🍔_PC]+pc_offset));
+                    reg[r0]=mem_read(mem_read(reg[🍔_🙅]+pc_offset));
                     update_flags(r0);
                 }
                 break;
-            case 🥚_LDR:
+            case 🥚_👩‍💻:
                 {
                     uint16_t r0=(instr>>9)&0x7;
                     uint16_t r1=(instr>>6)&0x7;
@@ -240,29 +240,29 @@ int main(int argc,const char* argv[]){
                     update_flags(r0);
                 }
                 break;
-            case 🥚_LEA:
+            case 🥚_💅:
                 {
                     uint16_t r0=(instr>>9)&0x7;
                     uint16_t pc_offset=sign_extend(instr&0x1ff,9);
-                    reg[r0]=reg[🍔_PC]+pc_offset;
+                    reg[r0]=reg[🍔_🙅]+pc_offset;
                     update_flags(r0);
                 }
                 break;
-            case 🥚_ST:
+            case 🥚_🔰:
                 {
                     uint16_t r0=(instr>>9)&0x7;
                     uint16_t pc_offset=sign_extend(instr&0x1ff,9);
-                    mem_write(reg[🍔_PC]+pc_offset,reg[r0]);
+                    mem_write(reg[🍔_🙅]+pc_offset,reg[r0]);
                 }
                 break;
-            case 🥚_STI:
+            case 🥚_💊:
                 {
                     uint16_t r0=(instr>>9)&0x7;
                     uint16_t pc_offset=sign_extend(instr&0x1ff,9);
-                    mem_write(mem_read(reg[🍔_PC]+pc_offset),reg[r0]);
+                    mem_write(mem_read(reg[🍔_🙅]+pc_offset),reg[r0]);
                 }
                 break;
-            case 🥚_STR:
+            case 🥚_👊:
                 {
                     uint16_t r0=(instr>>9)&0x7;
                     uint16_t r1=(instr>>6)&0x7;
@@ -270,16 +270,16 @@ int main(int argc,const char* argv[]){
                     mem_write(reg[r1]+offset,reg[r0]);
                 }
                 break;
-            case 🥚_TRAP:
+            case 🥚_👃:
                 switch(instr&0xFF){
-                    case TRAP_GETC:
+                    case 👃_GETC:
                         reg[🍔_🌍]=(uint16_t)getchar();
                         break;
-                    case TRAP_OUT:
+                    case 👃_OUT:
                         putc((char)reg[🍔_🌍],stdout);
                         fflush(stdout);
                         break;
-                    case TRAP_PUTS:
+                    case 👃_PUTS:
                         {
                             uint16_t* c=memory+reg[🍔_🌍];
                             while(*c){
@@ -289,13 +289,13 @@ int main(int argc,const char* argv[]){
                             fflush(stdout);
                         }
                         break;
-                    case TRAP_IN:
+                    case 👃_IN:
                         printf("Enter a character: ");
                         char c=getchar();
                         putc(c,stdout);
                         reg[🍔_🌍]=(uint16_t)c;
                         break;
-                    case TRAP_PUTSP:
+                    case 👃_PUTSP:
                         {
                             uint16_t* c=memory+reg[🍔_🌍];
                             while (*c){
@@ -308,15 +308,15 @@ int main(int argc,const char* argv[]){
                             fflush(stdout);
                         }
                         break;
-                    case TRAP_HALT:
+                    case 👃_HALT:
                         puts("HALT");
                         fflush(stdout);
                         running=0;
                         break;
                 }
                 break;
-            case 🥚_RES:
-            case 🥚_RTI:
+            case 🥚_✨:
+            case 🥚_🐀:
             default:
                 abort();
                 break;
