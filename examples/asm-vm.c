@@ -46,15 +46,15 @@
     😻_😹=0xFE00,
     😻_👺=0xFE02
 }🧀{
-    👃_GETC=0x20,
-    👃_OUT=0x21,
-    👃_PUTS=0x22,
-    👃_IN=0x23,
-    👃_PUTSP=0x24,
-    👃_HALT=0x25
+    👃_🙃=0x20,
+    👃_😶=0x21,
+    👃_🥳=0x22,
+    👃_😡=0x23,
+    👃_😑=0x24,
+    👃_🥶=0x25
 }
-💤 memory[UINT16_MAX];
-💤 reg[🍔_👶];
+💤 🤩[😈];
+💤 💩[🍔_👶];
 💤 sign_extend(💤 x,int bit_count){
     if((x>>(bit_count-1))&1){
         x |= (0xFFFF<<bit_count);
@@ -65,20 +65,20 @@
     return(x<<8)|(x>>8);
 }
 void update_flags(💤 r){
-    if(reg[r]==0){
-        reg[🍔_🎅]=🍴_💛;
-    }else if(reg[r]>>15){
-        reg[🍔_🎅]=🍴_🙊;
+    if(💩[r]==0){
+        💩[🍔_🎅]=🍴_💛;
+    }else if(💩[r]>>15){
+        💩[🍔_🎅]=🍴_🙊;
     }else{
-        reg[🍔_🎅]=🍴_💯;
+        💩[🍔_🎅]=🍴_💯;
     }
 }
 void read_image_file(FILE* file){
     💤 origin;
     fread(&origin,sizeof(origin),1,file);
     origin=swap16(origin);
-    💤 max_read=UINT16_MAX-origin;
-    💤* p=memory+origin;
+    💤 max_read=😈-origin;
+    💤* p=🤩+origin;
     size_t read=fread(p,sizeof(💤),max_read,file);
     while(read-- >0){
         *p=swap16(*p);
@@ -102,18 +102,18 @@ int read_image(const char* image_path){
     return select(1,&readfds,NULL,NULL,&timeout)!=0;
 }
 void mem_write(💤 address,💤 val){
-    memory[address]=val;
+    🤩[address]=val;
 }
 uint16_t mem_read(💤 address){
     if(address==😻_😹){
         if(check_key()){
-            memory[😻_😹]=(1<<15);
-            memory[😻_👺]=getchar();
+            🤩[😻_😹]=(1<<15);
+            🤩[😻_👺]=getchar();
         }else{
-            memory[😻_😹]=0;
+            🤩[😻_😹]=0;
         }
     }
-    return memory[address];
+    return 🤩[address];
 }
 struct termios original_tio;
 void disable_input_buffering(){
@@ -144,10 +144,10 @@ int main(int argc,const char* argv[]){
     signal(SIGINT,handle_interrupt);
     disable_input_buffering();
     🧀{🙅_START=0x3000};
-    reg[🍔_🙅]=🙅_START;
+    💩[🍔_🙅]=🙅_START;
     int running=1;
     while(running){
-        💤 instr=mem_read(reg[🍔_🙅]++);
+        💤 instr=mem_read(💩[🍔_🙅]++);
         💤 op=instr>>12;
         switch(op){
             case OP_🚚:{
@@ -156,10 +156,10 @@ int main(int argc,const char* argv[]){
                     💤 imm_flag=(instr>>5)&0x1;
                     if(imm_flag){
                         💤 imm5=sign_extend(instr&0x1F,5);
-                        reg[r0]=reg[r1]+imm5;
+                        💩[r0]=💩[r1]+imm5;
                     }else{
                         💤 r2=instr&0x7;
-                        reg[r0]=reg[r1]+reg[r2];
+                        💩[r0]=💩[r1]+💩[r2];
                     }
                     update_flags(r0);
                 }
@@ -170,10 +170,10 @@ int main(int argc,const char* argv[]){
                     💤 imm_flag=(instr>>5)&0x1;
                     if(imm_flag){
                         💤 imm5=sign_extend(instr&0x1F,5);
-                        reg[r0]=reg[r1]&imm5;
+                        💩[r0]=💩[r1]&imm5;
                     }else{
                         💤 r2=instr&0x7;
-                        reg[r0]=reg[r1]&reg[r2];
+                        💩[r0]=💩[r1]&💩[r2];
                     }
                     update_flags(r0);
                 }
@@ -182,22 +182,22 @@ int main(int argc,const char* argv[]){
                 {
                     💤 r0=(instr>>9)&0x7;
                     💤 r1=(instr>>6)&0x7;
-                    reg[r0]=~reg[r1];
+                    💩[r0]=~💩[r1];
                     update_flags(r0);
                 }
                 break;
             case 🥚_🕋:{
                     💤 pc_offset=sign_extend((instr)&0x1ff,9);
                     💤 cond_flag=(instr>>9)&0x7;
-                    if(cond_flag&reg[🍔_🎅]){
-                        reg[🍔_🙅]+=pc_offset;
+                    if(cond_flag&💩[🍔_🎅]){
+                        💩[🍔_🙅]+=pc_offset;
                     }
                 }
                 break;
             case 🥚_👁️‍🗨️:
                 {
                     💤 r1=(instr>>6)&0x7;
-                    reg[🍔_🙅]=reg[r1];
+                    💩[🍔_🙅]=💩[r1];
                 }
                 break;
             case 🥚_👄:
@@ -205,12 +205,12 @@ int main(int argc,const char* argv[]){
                     💤 r1=(instr>>6)&0x7;
                     💤 long_pc_offset=sign_extend(instr&0x7ff,11);
                     💤 long_flag=(instr>>11)&1;
-                    reg[🍔_🙇]=reg[🍔_🙅];
+                    💩[🍔_🙇]=💩[🍔_🙅];
                     if(long_flag){
-                        reg[🍔_🙅]+=long_pc_offset;
+                        💩[🍔_🙅]+=long_pc_offset;
                     }
                     else{
-                        reg[🍔_🙅]=reg[r1];
+                        💩[🍔_🙅]=💩[r1];
                     }
                     break;
                 }
@@ -219,7 +219,7 @@ int main(int argc,const char* argv[]){
                 {
                     💤 r0=(instr>>9)&0x7;
                     💤 pc_offset=sign_extend(instr&0x1ff,9);
-                    reg[r0]=mem_read(reg[🍔_🙅]+pc_offset);
+                    💩[r0]=mem_read(💩[🍔_🙅]+pc_offset);
                     update_flags(r0);
                 }
                 break;
@@ -227,7 +227,7 @@ int main(int argc,const char* argv[]){
                 {
                     💤 r0=(instr>>9)&0x7;
                     💤 pc_offset=sign_extend(instr&0x1ff,9);
-                    reg[r0]=mem_read(mem_read(reg[🍔_🙅]+pc_offset));
+                    💩[r0]=mem_read(mem_read(💩[🍔_🙅]+pc_offset));
                     update_flags(r0);
                 }
                 break;
@@ -236,7 +236,7 @@ int main(int argc,const char* argv[]){
                     💤 r0=(instr>>9)&0x7;
                     💤 r1=(instr>>6)&0x7;
                     💤 offset=sign_extend(instr&0x3F,6);
-                    reg[r0]=mem_read(reg[r1]+offset);
+                    💩[r0]=mem_read(💩[r1]+offset);
                     update_flags(r0);
                 }
                 break;
@@ -244,7 +244,7 @@ int main(int argc,const char* argv[]){
                 {
                     💤 r0=(instr>>9)&0x7;
                     💤 pc_offset=sign_extend(instr&0x1ff,9);
-                    reg[r0]=reg[🍔_🙅]+pc_offset;
+                    💩[r0]=💩[🍔_🙅]+pc_offset;
                     update_flags(r0);
                 }
                 break;
@@ -252,14 +252,14 @@ int main(int argc,const char* argv[]){
                 {
                     💤 r0=(instr>>9)&0x7;
                     💤 pc_offset=sign_extend(instr&0x1ff,9);
-                    mem_write(reg[🍔_🙅]+pc_offset,reg[r0]);
+                    mem_write(💩[🍔_🙅]+pc_offset,💩[r0]);
                 }
                 break;
             case 🥚_💊:
                 {
                     💤 r0=(instr>>9)&0x7;
                     💤 pc_offset=sign_extend(instr&0x1ff,9);
-                    mem_write(mem_read(reg[🍔_🙅]+pc_offset),reg[r0]);
+                    mem_write(mem_read(💩[🍔_🙅]+pc_offset),💩[r0]);
                 }
                 break;
             case 🥚_👊:
@@ -267,21 +267,21 @@ int main(int argc,const char* argv[]){
                     💤 r0=(instr>>9)&0x7;
                     💤 r1=(instr>>6)&0x7;
                     💤 offset=sign_extend(instr&0x3F,6);
-                    mem_write(reg[r1]+offset,reg[r0]);
+                    mem_write(💩[r1]+offset,💩[r0]);
                 }
                 break;
             case 🥚_👃:
                 switch(instr&0xFF){
-                    case 👃_GETC:
-                        reg[🍔_🌍]=(💤)getchar();
+                    case 👃_🙃:
+                        💩[🍔_🌍]=(💤)getchar();
                         break;
-                    case 👃_OUT:
-                        putc((char)reg[🍔_🌍],stdout);
+                    case 👃_😶:
+                        putc((char)💩[🍔_🌍],stdout);
                         fflush(stdout);
                         break;
-                    case 👃_PUTS:
+                    case 👃_🥳:
                         {
-                            💤* c=memory+reg[🍔_🌍];
+                            💤* c=🤩+💩[🍔_🌍];
                             while(*c){
                                 putc((char)*c,stdout);
                                 ++c;
@@ -289,15 +289,15 @@ int main(int argc,const char* argv[]){
                             fflush(stdout);
                         }
                         break;
-                    case 👃_IN:
+                    case 👃_😡:
                         printf("Enter a character: ");
                         char c=getchar();
                         putc(c,stdout);
-                        reg[🍔_🌍]=(💤)c;
+                        💩[🍔_🌍]=(💤)c;
                         break;
-                    case 👃_PUTSP:
+                    case 👃_😑:
                         {
-                            💤* c=memory+reg[🍔_🌍];
+                            💤* c=🤩+💩[🍔_🌍];
                             while (*c){
                                 char char1=(*c)&0xFF;
                                 putc(char1,stdout);
@@ -308,8 +308,8 @@ int main(int argc,const char* argv[]){
                             fflush(stdout);
                         }
                         break;
-                    case 👃_HALT:
-                        puts("boop");
+                    case 👃_🥶:
+                        puts("🥶");
                         fflush(stdout);
                         running=0;
                         break;
