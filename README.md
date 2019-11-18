@@ -12,5 +12,8 @@ my programming philosophy is simple:
 * make code cross-compatible
 * make code functional
 
+## why isn't it done yet
+most of the header files are on my thinkpad and i procrastinate. i'll upload them eventually.
+
 so long as it follows these rules, you don't need to make it look good, nor add comments. if people want to edit it, they already know how to.
 adding emojis into the mix simply elevates this philosophy to the world of hieroglyphics.
