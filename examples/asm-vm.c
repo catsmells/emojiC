@@ -57,11 +57,9 @@
 💤 💩[🍔_👶];
 💤 😜(💤 😆,💙 😀){
     🥺((😆>>(😀-1))&1){
-        😆 |= (0xFFFF<<😀);
+        😆|=(0xFFFF<<😀);
     }return(😆);
-}💤 🎱(💤 😆){
-    return(😆<<8)|(😆>>8);
-}🤡 update_flags(💤 🤓){
+}💤 🎱(💤 😆){return(😆<<8)|(😆>>8);}🤡 update_flags(💤 🤓){
     🥺(💩[🤓]==0){
         💩[🍔_🎅]=🍴_💛;
     }🎭 🥺(💩[🤓]>>15){
@@ -174,12 +172,10 @@
                         💩[🍔_🙅]+=pc_offset;
                     }
                 }break;
-            case 🥚_👁️‍🗨️:
-                {
+            case 🥚_👁️‍🗨️:{
                     💤 r1=(instr>>6)&0x7;
                     💩[🍔_🙅]=💩[r1];
-                }
-                break;
+                }break;
             case 🥚_👄:{
                     💤 r1=(instr>>6)&0x7;
                     💤 long_pc_offset=😜(instr&0x7ff,11);
@@ -191,49 +187,42 @@
                         💩[🍔_🙅]=💩[r1];
                     }break;
                 }break;
-            case 🥚_🤵:
-                {
+            case 🥚_🤵:{
                     💤 r0=(instr>>9)&0x7;
                     💤 pc_offset=😜(instr&0x1ff,9);
                     💩[r0]=mem_read(💩[🍔_🙅]+pc_offset);
                     update_flags(r0);
                 }break;
-            case 🥚_🚲:
-                {
+            case 🥚_🚲:{
                     💤 r0=(instr>>9)&0x7;
                     💤 pc_offset=😜(instr&0x1ff,9);
                     💩[r0]=mem_read(mem_read(💩[🍔_🙅]+pc_offset));
                     update_flags(r0);
                 }break;
-            case 🥚_👩‍💻:
-                {
+            case 🥚_👩‍💻:{
                     💤 r0=(instr>>9)&0x7;
                     💤 r1=(instr>>6)&0x7;
                     💤 offset=😜(instr&0x3F,6);
                     💩[r0]=mem_read(💩[r1]+offset);
                     update_flags(r0);
                 }break;
-            case 🥚_💅:
-                {
+            case 🥚_💅:{
                     💤 r0=(instr>>9)&0x7;
                     💤 pc_offset=😜(instr&0x1ff,9);
                     💩[r0]=💩[🍔_🙅]+pc_offset;
                     update_flags(r0);
                 }break;
-            case 🥚_🔰:
-                {
+            case 🥚_🔰:{
                     💤 r0=(instr>>9)&0x7;
                     💤 pc_offset=😜(instr&0x1ff,9);
                     mem_write(💩[🍔_🙅]+pc_offset,💩[r0]);
                 }break;
-            case 🥚_💊:
-                {
+            case 🥚_💊:{
                     💤 r0=(instr>>9)&0x7;
                     💤 pc_offset=😜(instr&0x1ff,9);
                     mem_write(mem_read(💩[🍔_🙅]+pc_offset),💩[r0]);
                 }break;
-            case 🥚_👊:
-                {
+            case 🥚_👊:{
                     💤 r0=(instr>>9)&0x7;
                     💤 r1=(instr>>6)&0x7;
                     💤 offset=😜(instr&0x3F,6);
@@ -248,8 +237,7 @@
                         putc((char)💩[🍔_🌍],stdout);
                         fflush(stdout);
                         break;
-                    case 👃_🥳:
-                        {
+                    case 👃_🥳:{
                             💤* c=🤩+💩[🍔_🌍];
                             while(*c){
                                 putc((char)*c,stdout);
@@ -262,8 +250,7 @@
                         putc(c,stdout);
                         💩[🍔_🌍]=(💤)c;
                         break;
-                    case 👃_😑:
-                        {
+                    case 👃_😑:{
                             💤* c=🤩+💩[🍔_🌍];
                             while (*c){
                                 char char1=(*c)&0xFF;
