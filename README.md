@@ -17,3 +17,6 @@ most of the header files are on my thinkpad and i procrastinate. i'll upload the
 
 so long as it follows these rules, you don't need to make it look good, nor add comments. if people want to edit it, they already know how to.
 adding emojis into the mix simply elevates this philosophy to the world of hieroglyphics.
+
+# emojiC news
+08/18/2020 -- i found out the "zig" language exists. that is all.
