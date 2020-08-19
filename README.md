@@ -20,3 +20,4 @@ adding emojis into the mix simply elevates this philosophy to the world of hiero
 
 # emojiC news
 08/18/2020 -- i found out the "zig" language exists. that is all.
+08/19/2020 -- yeah i'm working on a compiler but compiling with pen & paper is also pretty cool
