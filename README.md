@@ -22,3 +22,5 @@ adding emojis into the mix simply elevates this philosophy to the world of hiero
 08/18/2020 -- i found out the "zig" language exists. that is all.
 
 08/19/2020 -- yeah i'm working on a compiler but compiling with pen & paper is also pretty cool
+
+09/12/2020 -- to discourage people from thinking this language is anywhere near good, i will not finish the compiler. i will however, allow users to create a compiler and contribute if they want this plague to continue. in the meantime, enjoy manually compiling the worst language of all time!
