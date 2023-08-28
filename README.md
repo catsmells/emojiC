@@ -28,3 +28,5 @@ adding emojis into the mix simply elevates this philosophy to the world of hiero
 07/20/2021 -- i still use this language at work, the hard way. it's fun!
 
 10/06/2022 -- looking into making emojiHaskell and actually uploading all assets. stay tuned.
+
+08/28/2023 -- You may have noticed a lack of updates. You call it lazy, I call it _stable_!
